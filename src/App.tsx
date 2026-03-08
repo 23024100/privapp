@@ -383,7 +383,7 @@ export default function App() {
             animate={{ opacity: 1 }}
             className="w-full max-w-4xl z-10 space-y-8 pb-20"
           >
-            <header className="text-center space-y-8">
+            <header className="text-center space-y-4">
               <div className="flex flex-col items-center">
                 {stats && (
                   <motion.p 
@@ -459,8 +459,7 @@ export default function App() {
 
             {/* Music Section */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-              <div className="glass-card p-8 flex flex-col items-center justify-center space-y-6 relative overflow-visible group">
-                <div className="absolute inset-0 bg-hunyadi-yellow/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2.5rem]" />
+              <div className="glass-card p-8 flex flex-col items-center justify-center space-y-6 relative overflow-visible">
                 
                 {/* Daily Suggestion */}
                 <motion.a
@@ -475,7 +474,7 @@ export default function App() {
                     <Music size={16} className="text-hunyadi-yellow" />
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-hunyadi-yellow font-bold">Song for you</span>
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-hunyadi-yellow font-bold">a song that reminds me of you today</span>
                     <span className="text-[11px] font-semibold text-vanilla/90 leading-tight truncate">
                       Don't Leave — Giveon
                     </span>
