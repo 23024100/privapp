@@ -41,6 +41,8 @@ export default function App() {
   const [isSubmittingNote, setIsSubmittingNote] = useState(false);
   const [noteSubmitted, setNoteSubmitted] = useState(false);
   const [showAngryPopup, setShowAngryPopup] = useState(false);
+  const [landingSuccess, setLandingSuccess] = useState(false);
+  const [nicknameSuccess, setNicknameSuccess] = useState(false);
 
   useEffect(() => {
     sessionStorage.setItem('app_step', step);
@@ -100,8 +102,12 @@ export default function App() {
     const lowerName = name.toLowerCase().trim();
     if (lowerName === 'parik') {
       setError('');
-      setUser('parik');
-      setStep('nickname');
+      setLandingSuccess(true);
+      setTimeout(() => {
+        setUser('parik');
+        setStep('nickname');
+        setLandingSuccess(false);
+      }, 2000);
     } else if (lowerName === 'sarah') {
       setError('');
       setUser('sarah');
@@ -115,7 +121,11 @@ export default function App() {
   const handleNickname = () => {
     if (nickname.toLowerCase() === 'the gram') {
       setError('');
-      setStep('lyrics');
+      setNicknameSuccess(true);
+      setTimeout(() => {
+        setStep('lyrics');
+        setNicknameSuccess(false);
+      }, 2000);
     } else {
       setError("Hmm… that nickname sounds suspicious.");
     }
@@ -223,22 +233,35 @@ export default function App() {
             exit={{ opacity: 0, y: -20 }}
             className="glass-card p-12 w-full max-w-md text-center z-10 border-white/5"
           >
-            <h1 className="text-3xl font-retro mb-8 neon-text font-black tracking-tighter">Welcome back.</h1>
-            <p className="label-small mb-8">Identity Verification Required</p>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full bg-white/[0.02] border border-white/5 rounded-2xl p-5 mb-8 focus:outline-none focus:border-hunyadi-yellow/20 transition-all text-center text-vanilla placeholder:opacity-10"
-              placeholder="Enter Name"
-            />
-            <button
-              onClick={handleLanding}
-              className="w-full bg-hunyadi-yellow/5 hover:bg-hunyadi-yellow/10 border border-hunyadi-yellow/10 rounded-2xl p-5 transition-all text-[10px] uppercase tracking-[0.4em] font-black text-hunyadi-yellow"
-            >
-              Initialize
-            </button>
-            {error && <p className="mt-8 text-red-400/60 text-[9px] uppercase tracking-widest font-bold">{error}</p>}
+            {landingSuccess ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="space-y-4"
+              >
+                <p className="text-lg font-serif italic text-vanilla/90">Handsome guy like you?</p>
+                <p className="text-lg font-serif italic text-vanilla/90">Yeah… that checks out.</p>
+              </motion.div>
+            ) : (
+              <>
+                <h1 className="text-3xl font-retro mb-4 neon-text font-black tracking-tighter">Oh hello there, handsome.</h1>
+                <p className="label-small mb-8">Before you go any further… what's your name?</p>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full bg-white/[0.02] border border-white/5 rounded-2xl p-5 mb-8 focus:outline-none focus:border-hunyadi-yellow/20 transition-all text-center text-vanilla placeholder:opacity-10"
+                  placeholder="Enter Name"
+                />
+                <button
+                  onClick={handleLanding}
+                  className="w-full bg-hunyadi-yellow/5 hover:bg-hunyadi-yellow/10 border border-hunyadi-yellow/10 rounded-2xl p-5 transition-all text-[10px] uppercase tracking-[0.4em] font-black text-hunyadi-yellow"
+                >
+                  Continue
+                </button>
+                {error && <p className="mt-8 text-red-400/60 text-[9px] uppercase tracking-widest font-bold">{error}</p>}
+              </>
+            )}
           </motion.div>
         )}
 
@@ -250,22 +273,35 @@ export default function App() {
             exit={{ opacity: 0, x: -50 }}
             className="glass-card p-12 w-full max-w-md text-center z-10 border-white/5"
           >
-            <h2 className="text-2xl font-retro mb-8 neon-text font-black tracking-tighter">Secondary Check.</h2>
-            <p className="label-small mb-8">What do people also call you?</p>
-            <input
-              type="text"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              className="w-full bg-white/[0.02] border border-white/5 rounded-2xl p-5 mb-8 focus:outline-none focus:border-hunyadi-yellow/20 transition-all text-center text-vanilla placeholder:opacity-10"
-              placeholder="Nickname"
-            />
-            <button
-              onClick={handleNickname}
-              className="w-full bg-hunyadi-yellow/5 hover:bg-hunyadi-yellow/10 border border-hunyadi-yellow/10 rounded-2xl p-5 transition-all text-[10px] uppercase tracking-[0.4em] font-black text-hunyadi-yellow"
-            >
-              Verify
-            </button>
-            {error && <p className="mt-8 text-red-400/60 text-[9px] uppercase tracking-widest font-bold">{error}</p>}
+            {nicknameSuccess ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="space-y-4"
+              >
+                <p className="text-lg font-serif italic text-vanilla/90">Ah… there it is.</p>
+                <p className="text-lg font-serif italic text-vanilla/90">Definitely you.</p>
+              </motion.div>
+            ) : (
+              <>
+                <h2 className="text-2xl font-retro mb-3 neon-text font-black tracking-tighter">Just to double check it's really you…</h2>
+                <p className="label-small mb-8">What do people also happen to call you?</p>
+                <input
+                  type="text"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                  className="w-full bg-white/[0.02] border border-white/5 rounded-2xl p-5 mb-8 focus:outline-none focus:border-hunyadi-yellow/20 transition-all text-center text-vanilla placeholder:opacity-10"
+                  placeholder="Nickname"
+                />
+                <button
+                  onClick={handleNickname}
+                  className="w-full bg-hunyadi-yellow/5 hover:bg-hunyadi-yellow/10 border border-hunyadi-yellow/10 rounded-2xl p-5 transition-all text-[10px] uppercase tracking-[0.4em] font-black text-hunyadi-yellow"
+                >
+                  Verify
+                </button>
+                {error && <p className="mt-8 text-red-400/60 text-[9px] uppercase tracking-widest font-bold">{error}</p>}
+              </>
+            )}
           </motion.div>
         )}
 
