@@ -202,36 +202,23 @@ export default function App() {
       <div className="grain-texture" />
       <div className="scanline" />
 
-      {/* Top Marquee */}
+      {/* Top Banner */}
       {step === 'main' && (
-        <div className="w-full bg-hunyadi-yellow/10 border-y border-hunyadi-yellow/10 py-3 overflow-hidden z-50">
-          <div className="marquee-content whitespace-nowrap">
-            {[...Array(10)].map((_, i) => (
-              <span key={i} className="font-cursive text-xl mx-12 opacity-40 lowercase">
-                a digital keepsake, made for parik
-              </span>
-            ))}
-          </div>
+        <div className="w-full flex justify-center py-2 z-50">
+          <p className="font-cursive text-2xl text-hunyadi-yellow/60 tracking-wide">a digital keepsake, made for parik</p>
         </div>
       )}
 
       {/* Aesthetic Header */}
       {step === 'main' && (
-        <header className="w-full max-w-7xl mx-auto flex justify-between items-center py-8 px-8 z-50 mb-8">
+        <header className="w-full max-w-7xl mx-auto flex justify-between items-center py-2 px-8 z-50 mb-2">
           <div className="flex items-center gap-4 text-hunyadi-yellow/30">
-            <Heart size={12} className="fill-current" />
-            <span className="text-[10px] tracking-[0.4em] font-black">✧˖*°࿐</span>
           </div>
           
           <div className="flex flex-col items-center gap-1">
-            <div className="flex items-center gap-3 text-hunyadi-yellow/60">
-              <Heart size={16} className="fill-hunyadi-yellow/20" />
-            </div>
           </div>
 
           <div className="flex items-center gap-4 text-hunyadi-yellow/30">
-            <span className="text-[10px] tracking-[0.4em] font-black">✧˖*°࿐</span>
-            <Heart size={12} className="fill-current" />
           </div>
         </header>
       )}
@@ -429,7 +416,7 @@ export default function App() {
             key="main"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="w-full max-w-4xl z-10 space-y-8 pb-20"
+            className="w-full max-w-4xl z-10 space-y-16 pb-20"
           >
             <header className="text-center space-y-4">
               <div className="flex flex-col items-center">
@@ -563,9 +550,16 @@ export default function App() {
                     <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none" />
                   </motion.div>
 
-                  {/* Tonearm */}
-                  <div className="absolute top-12 -right-12 w-32 h-5 bg-gradient-to-r from-zinc-700 to-zinc-800 rounded-full origin-left rotate-[-25deg] border border-white/20 hidden md:block shadow-lg">
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 bg-zinc-600 rounded-sm border border-white/30 shadow-lg" />
+                  {/* Tonearm with Needle */}
+                  <div className="absolute top-8 -right-16 w-40 h-8 origin-left rotate-[-30deg] md:block hidden">
+                    {/* Tonearm Base */}
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-6 bg-gradient-to-r from-zinc-700 via-zinc-600 to-zinc-700 rounded-full shadow-lg border border-white/20" />
+                    
+                    {/* Tonearm Rod */}
+                    <div className="absolute left-12 top-1/2 -translate-y-1/2 w-24 h-4 bg-gradient-to-r from-zinc-600 to-zinc-700 rounded-full shadow-lg" />
+                    
+                    {/* Headshell */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-6 bg-zinc-700 rounded-lg border border-white/30 shadow-lg" />
                   </div>
                 </div>
               </div>
@@ -584,7 +578,7 @@ export default function App() {
             </section>
 
             {/* Mood & Note Section */}
-            <section className="glass-card p-8 md:p-12 relative overflow-hidden border-hunyadi-yellow/5">
+            <section className="glass-card p-8 md:p-12 relative overflow-visible border-hunyadi-yellow/5">
               <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-hunyadi-yellow/20 to-transparent" />
               
               <div className="text-center mb-12">
@@ -661,21 +655,24 @@ export default function App() {
                   <AnimatePresence>
                     {showAngryPopup && (
                       <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        className="absolute inset-0 z-[2000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm rounded-[2.5rem]"
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute inset-0 z-[2000] flex items-center justify-center rounded-[2.5rem]"
                         onClick={() => setShowAngryPopup(false)}
                       >
                         <motion.div 
-                          className="glass-card p-12 w-full text-center space-y-6 border-red-500/20"
+                          className="glass-card p-12 w-full max-w-sm text-center space-y-6 border-red-500/20 bg-black/60"
                           onClick={e => e.stopPropagation()}
                         >
-                          <div className="text-7xl">😡</div>
-                          <p className="text-red-400 font-bold tracking-widest text-sm">pick another one.</p>
+                          <div className="text-8xl animate-bounce">😡</div>
+                          <div className="space-y-3">
+                            <p className="text-red-400 font-bold tracking-widest text-sm">pick another one.</p>
+                          </div>
                           <button 
                             onClick={() => setShowAngryPopup(false)}
-                            className="w-full py-4 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 rounded-xl text-[10px] tracking-widest font-bold text-red-400 transition-all"
+                            className="w-full py-4 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 rounded-xl text-[10px] tracking-widest font-bold text-red-400 transition-all"
                           >
                             okay sorry
                           </button>
@@ -685,6 +682,7 @@ export default function App() {
                   </AnimatePresence>
 
                   <div className="space-y-5">
+                    <label className="label-small ml-1">anything else you want to tell me? :3</label>
                     <textarea
                       value={note}
                       onChange={(e) => setNote(e.target.value)}
