@@ -43,6 +43,11 @@ export default function App() {
   const [showAngryPopup, setShowAngryPopup] = useState(false);
   const [landingSuccess, setLandingSuccess] = useState(false);
   const [nicknameSuccess, setNicknameSuccess] = useState(false);
+  const [lastNoteTime, setLastNoteTime] = useState<number | null>(() => {
+    const saved = sessionStorage.getItem('lastNoteTime');
+    return saved ? parseInt(saved) : null;
+  });
+  const [nextNoteTime, setNextNoteTime] = useState<number>(0);
 
   useEffect(() => {
     sessionStorage.setItem('app_step', step);
@@ -77,6 +82,17 @@ export default function App() {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  // Calculate next note submission time (12 AM SGT)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (lastNoteTime) {
+        const nextTime = lastNoteTime + 24 * 60 * 60 * 1000; // 24 hours later
+        setNextNoteTime(nextTime);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [lastNoteTime]);
 
   const checkRedemption = async () => {
     try {
@@ -175,8 +191,7 @@ export default function App() {
   });
 
   return (
-    <div className="min-h-screen relative flex flex-col items-center p-4 overflow-x-hidden grid-pattern">
-      <StarBackground />
+    <div className="min-h-screen relative flex flex-col items-center p-4 overflow-x-hidden">
       <div className="grain-texture" />
       <div className="scanline" />
 
@@ -685,19 +700,30 @@ export default function App() {
 
                   <button
                     onClick={() => {
+                      const now = Date.now();
+                      setLastNoteTime(now);
+                      sessionStorage.setItem('lastNoteTime', now.toString());
                       setIsSubmittingNote(true);
                       setTimeout(() => {
                         setIsSubmittingNote(false);
                         setNoteSubmitted(true);
+                        setNote('');
+                        setMood(null);
+                        setMissesSarah(null);
+                        setDayRating(5);
                       }, 1500);
                     }}
-                    disabled={mood === null || missesSarah === null || isSubmittingNote}
+                    disabled={mood === null || missesSarah === null || isSubmittingNote || (lastNoteTime && Date.now() < nextNoteTime)}
                     className="w-full bg-hunyadi-yellow/10 hover:bg-hunyadi-yellow/20 border border-hunyadi-yellow/20 rounded-2xl p-5 transition-all flex items-center justify-center gap-3 text-hunyadi-yellow disabled:opacity-20"
                   >
                     {isSubmittingNote ? (
                       <span className="text-[10px] tracking-[0.4em] font-black">transmitting...</span>
+                    ) : lastNoteTime && Date.now() < nextNoteTime ? (
+                      <span className="text-[10px] tracking-[0.4em] font-black">come back at 12 AM SGT</span>
                     ) : (
-                      <Send size={18} className="fill-current" />
+                      <>
+                        <Send size={18} className="fill-current" />
+                      </>
                     )}
                   </button>
                 </div>
