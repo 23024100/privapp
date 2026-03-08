@@ -141,7 +141,8 @@ export default function App() {
   };
 
   const handleNickname = () => {
-    if (nickname.toLowerCase() === 'the gram') {
+    const cleanedNickname = nickname.toLowerCase().trim();
+    if (cleanedNickname === 'the gram' || cleanedNickname === 'parikgram') {
       setError('');
       setNicknameSuccess(true);
       setTimeout(() => {
@@ -284,7 +285,7 @@ export default function App() {
               </motion.div>
             ) : (
               <>
-                <h2 className="text-2xl font-retro mb-3 neon-text font-black tracking-tighter whitespace-nowrap">Just to double check it's really you…</h2>
+                <h2 className="text-lg sm:text-2xl font-retro mb-3 neon-text font-black tracking-tighter">Just to double check it's really you…</h2>
                 <p className="label-small mb-8">What do people also happen to call you?</p>
                 <input
                   type="text"
@@ -503,14 +504,14 @@ export default function App() {
                   rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="w-full max-w-xs bg-gradient-to-r from-hunyadi-yellow/15 to-hunyadi-yellow/5 backdrop-blur-md border border-hunyadi-yellow/30 p-4 rounded-2xl flex items-center gap-4 hover:from-hunyadi-yellow/25 hover:to-hunyadi-yellow/10 transition-all group/song z-10 relative"
+                  className="w-full max-w-xs bg-gradient-to-r from-hunyadi-yellow/15 to-hunyadi-yellow/5 backdrop-blur-md border border-hunyadi-yellow/30 p-3 sm:p-4 rounded-2xl flex items-center gap-3 sm:gap-4 hover:from-hunyadi-yellow/25 hover:to-hunyadi-yellow/10 transition-all group/song z-10 relative"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-hunyadi-yellow/20 flex items-center justify-center group-hover/song:scale-110 transition-transform flex-shrink-0">
-                    <Music size={16} className="text-hunyadi-yellow" />
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-hunyadi-yellow/20 flex items-center justify-center group-hover/song:scale-110 transition-transform flex-shrink-0">
+                    <Music size={14} className="text-hunyadi-yellow sm:w-4 sm:h-4" />
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-[9px] uppercase tracking-[0.15em] text-hunyadi-yellow font-bold whitespace-nowrap">a song that reminds me of you today</span>
-                    <span className="text-[11px] font-semibold text-vanilla/90 leading-tight truncate">
+                    <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.15em] text-hunyadi-yellow font-bold whitespace-nowrap">a song that reminds me of you today</span>
+                    <span className="text-[10px] sm:text-[11px] font-semibold text-vanilla/90 leading-tight truncate">
                       Don't Leave — Giveon
                     </span>
                   </div>
