@@ -231,7 +231,7 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="glass-card p-12 w-full max-w-md text-center z-10 border-white/5"
+            className="glass-card p-6 sm:p-12 w-full max-w-md text-center z-10 border-white/5"
           >
             {landingSuccess ? (
               <motion.div 
@@ -244,8 +244,8 @@ export default function App() {
               </motion.div>
             ) : (
               <>
-                <h1 className="text-2xl font-retro mb-4 neon-text font-black tracking-tighter whitespace-nowrap">Oh hello there, handsome.</h1>
-                <p className="label-small mb-8">What's your name?</p>
+                <h1 className="text-xl sm:text-2xl font-retro mb-4 neon-text font-black tracking-tighter">Oh hello there, handsome.</h1>
+                <p className="label-small mb-6 sm:mb-8">What's your name?</p>
                 <input
                   type="text"
                   value={name}
@@ -255,7 +255,7 @@ export default function App() {
                 />
                 <button
                   onClick={handleLanding}
-                  className="w-full bg-hunyadi-yellow/5 hover:bg-hunyadi-yellow/10 border border-hunyadi-yellow/10 rounded-2xl p-5 transition-all text-[10px] uppercase tracking-[0.4em] font-black text-hunyadi-yellow"
+                  className="w-full bg-hunyadi-yellow/5 hover:bg-hunyadi-yellow/10 border border-hunyadi-yellow/10 rounded-2xl p-4 sm:p-5 transition-all text-[11px] sm:text-[10px] uppercase tracking-[0.3em] sm:tracking-[0.4em] font-black text-hunyadi-yellow min-h-[48px] flex items-center justify-center"
                 >
                   Continue
                 </button>
@@ -271,7 +271,7 @@ export default function App() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
-            className="glass-card p-12 w-full max-w-md text-center z-10 border-white/5"
+            className="glass-card p-6 sm:p-12 w-full max-w-md text-center z-10 border-white/5"
           >
             {nicknameSuccess ? (
               <motion.div 
@@ -339,7 +339,7 @@ export default function App() {
             key="redemption"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="glass-card p-8 w-full max-w-md text-center z-10"
+            className="glass-card p-6 sm:p-8 w-full max-w-md text-center z-10"
           >
             {isRedeemed ? (
               <div className="space-y-4">
@@ -433,9 +433,9 @@ export default function App() {
                   </motion.p>
                 )}
               </div>
-              <div className="glass-card px-10 py-8 inline-block border-hunyadi-yellow/10">
-                <p className="label-small mb-6">Until I see you again</p>
-                <div className="flex gap-6 md:gap-12 justify-center">
+              <div className="glass-card px-4 sm:px-10 py-6 sm:py-8 inline-block border-hunyadi-yellow/10">
+                <p className="label-small mb-4 sm:mb-6">Until I see you again</p>
+                <div className="flex gap-3 sm:gap-6 md:gap-12 justify-center">
                   {[
                     { label: 'Days', value: timeLeft.days },
                     { label: 'Hours', value: timeLeft.hours },
@@ -443,7 +443,7 @@ export default function App() {
                     { label: 'Secs', value: timeLeft.seconds },
                   ].map((item) => (
                     <div key={item.label} className="text-center">
-                      <div className="text-3xl md:text-5xl font-retro neon-text tabular-nums font-black tracking-tighter">
+                      <div className="text-2xl sm:text-3xl md:text-5xl font-retro neon-text tabular-nums font-black tracking-tighter">
                         {String(item.value).padStart(2, '0')}
                       </div>
                       <div className="label-small mt-2 opacity-20">{item.label}</div>
@@ -578,7 +578,7 @@ export default function App() {
             </section>
 
             {/* Mood & Note Section */}
-            <section className="glass-card p-8 md:p-12 relative overflow-visible border-hunyadi-yellow/5">
+            <section className="glass-card p-6 md:p-12 relative overflow-visible border-hunyadi-yellow/5">
               <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-hunyadi-yellow/20 to-transparent" />
               
               <div className="text-center mb-12">
@@ -595,16 +595,16 @@ export default function App() {
                   <p className="text-xs font-serif italic opacity-60 tracking-wide">Note received. I'll see it soon, Parik.</p>
                 </motion.div>
               ) : (
-                <div className="space-y-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="space-y-6 sm:space-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
                     <div className="space-y-5">
                       <label className="label-small ml-1">current mood</label>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2 sm:gap-3">
                         {['😢', '😠', '😐', '😊', '🥰'].map((emoji, i) => (
                           <button
                             key={i}
                             onClick={() => setMood(i + 1)}
-                            className={`w-11 h-11 rounded-xl flex items-center justify-center text-lg transition-all ${mood === i + 1 ? 'bg-hunyadi-yellow/10 border-hunyadi-yellow/30 scale-105' : 'bg-white/5 border-white/5 hover:bg-white/10'}`}
+                            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center text-base sm:text-lg transition-all ${mood === i + 1 ? 'bg-hunyadi-yellow/10 border-hunyadi-yellow/30 scale-105' : 'bg-white/5 border-white/5 hover:bg-white/10 border'}`}
                           >
                             {emoji}
                           </button>
@@ -629,22 +629,22 @@ export default function App() {
 
                     <div className="md:col-span-2 space-y-5">
                       <label className="label-small ml-1">do you still like me?</label>
-                      <div className="flex gap-4">
+                      <div className="flex gap-2 sm:gap-4 flex-col sm:flex-row">
                         <button
                           onClick={() => setMissesSarah(true)}
-                          className={`flex-1 py-4 rounded-2xl text-[9px] tracking-[0.2em] font-bold transition-all border ${missesSarah === true ? 'bg-hunyadi-yellow/10 border-hunyadi-yellow/20 text-hunyadi-yellow' : 'bg-white/5 border-white/5 opacity-40'}`}
+                          className={`flex-1 py-3 sm:py-4 rounded-2xl text-[10px] sm:text-[9px] tracking-[0.2em] font-bold transition-all border min-h-[48px] flex items-center justify-center ${missesSarah === true ? 'bg-hunyadi-yellow/10 border-hunyadi-yellow/20 text-hunyadi-yellow' : 'bg-white/5 border-white/5 opacity-40'}`}
                         >
                           yes
                         </button>
                         <button
                           onClick={() => setMissesSarah(false)}
-                          className={`flex-1 py-4 rounded-2xl text-[9px] tracking-[0.2em] font-bold transition-all border ${missesSarah === false ? 'bg-hunyadi-yellow/10 border-hunyadi-yellow/20 text-hunyadi-yellow' : 'bg-white/5 border-white/5 opacity-40'}`}
+                          className={`flex-1 py-3 sm:py-4 rounded-2xl text-[10px] sm:text-[9px] tracking-[0.2em] font-bold transition-all border min-h-[48px] flex items-center justify-center ${missesSarah === false ? 'bg-hunyadi-yellow/10 border-hunyadi-yellow/20 text-hunyadi-yellow' : 'bg-white/5 border-white/5 opacity-40'}`}
                         >
                           obviously
                         </button>
                         <button
                           onClick={() => setShowAngryPopup(true)}
-                          className="flex-1 py-4 rounded-2xl text-[9px] tracking-[0.2em] font-bold transition-all border bg-white/5 border-white/5 hover:bg-red-500/10 hover:border-red-500/20 hover:text-red-400"
+                          className="flex-1 py-3 sm:py-4 rounded-2xl text-[10px] sm:text-[9px] tracking-[0.2em] font-bold transition-all border bg-white/5 border-white/5 hover:bg-red-500/10 hover:border-red-500/20 hover:text-red-400 min-h-[48px] flex items-center justify-center"
                         >
                           hell nah
                         </button>
@@ -687,7 +687,7 @@ export default function App() {
                       value={note}
                       onChange={(e) => setNote(e.target.value)}
                       placeholder="..."
-                      className="w-full h-32 bg-white/5 border border-white/5 rounded-2xl p-5 focus:outline-none focus:border-hunyadi-yellow/10 transition-all text-sm resize-none placeholder:opacity-20 leading-relaxed"
+                      className="w-full h-32 sm:h-40 bg-white/5 border border-white/5 rounded-2xl p-4 sm:p-5 focus:outline-none focus:border-hunyadi-yellow/10 transition-all text-sm resize-none placeholder:opacity-20 leading-relaxed"
                     />
                   </div>
 
@@ -729,7 +729,7 @@ export default function App() {
                       }
                     }}
                     disabled={mood === null || missesSarah === null || isSubmittingNote || (lastNoteTime && Date.now() < nextNoteTime)}
-                    className="w-full bg-hunyadi-yellow/10 hover:bg-hunyadi-yellow/20 border border-hunyadi-yellow/20 rounded-2xl p-5 transition-all flex items-center justify-center gap-3 text-hunyadi-yellow disabled:opacity-20"
+                    className="w-full bg-hunyadi-yellow/10 hover:bg-hunyadi-yellow/20 border border-hunyadi-yellow/20 rounded-2xl p-4 sm:p-5 transition-all flex items-center justify-center gap-3 text-hunyadi-yellow disabled:opacity-20 min-h-[48px]"
                   >
                     {isSubmittingNote ? (
                       <span className="text-[10px] tracking-[0.4em] font-black">transmitting...</span>
