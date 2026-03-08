@@ -236,20 +236,6 @@ export default function App() {
         </header>
       )}
 
-      {/* Floating Decorative Elements */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <motion.div 
-          animate={{ 
-            y: [0, -20, 0],
-            rotate: [0, 5, 0]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[20%] left-[10%] opacity-10"
-        >
-          <Disc size={120} className="text-hunyadi-yellow" />
-        </motion.div>
-      </div>
-
       <main className="flex-grow flex flex-col items-center justify-center w-full relative z-10">
         <AnimatePresence mode="wait">
         {step === 'landing' && (
