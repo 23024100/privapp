@@ -692,19 +692,41 @@ export default function App() {
                   </div>
 
                   <button
-                    onClick={() => {
-                      const now = Date.now();
-                      setLastNoteTime(now);
-                      sessionStorage.setItem('lastNoteTime', now.toString());
+                    onClick={async () => {
                       setIsSubmittingNote(true);
-                      setTimeout(() => {
+                      try {
+                        const res = await fetch('/api/note', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ 
+                            name: 'Parik', 
+                            mood, 
+                            missesSarah, 
+                            note, 
+                            dayRating 
+                          }),
+                        });
+                        if (res.ok) {
+                          const now = Date.now();
+                          setLastNoteTime(now);
+                          sessionStorage.setItem('lastNoteTime', now.toString());
+                          setTimeout(() => {
+                            setIsSubmittingNote(false);
+                            setNoteSubmitted(true);
+                            setNote('');
+                            setMood(null);
+                            setMissesSarah(null);
+                            setDayRating(5);
+                          }, 1500);
+                        } else {
+                          setIsSubmittingNote(false);
+                          alert('Failed to save note');
+                        }
+                      } catch (err) {
+                        console.error(err);
                         setIsSubmittingNote(false);
-                        setNoteSubmitted(true);
-                        setNote('');
-                        setMood(null);
-                        setMissesSarah(null);
-                        setDayRating(5);
-                      }, 1500);
+                        alert('Error saving note');
+                      }
                     }}
                     disabled={mood === null || missesSarah === null || isSubmittingNote || (lastNoteTime && Date.now() < nextNoteTime)}
                     className="w-full bg-hunyadi-yellow/10 hover:bg-hunyadi-yellow/20 border border-hunyadi-yellow/20 rounded-2xl p-5 transition-all flex items-center justify-center gap-3 text-hunyadi-yellow disabled:opacity-20"
