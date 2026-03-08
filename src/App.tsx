@@ -78,7 +78,7 @@ export default function App() {
 
   const checkRedemption = async () => {
     try {
-      const res = await fetch('/api/address/check/Parik');
+      const res = await fetch('/api/address-check?name=Parik');
       const data = await res.json();
       setIsRedeemed(data.exists);
     } catch (err) {
@@ -88,7 +88,7 @@ export default function App() {
 
   const fetchStats = async () => {
     try {
-      const res = await fetch('/api/stats/Parik');
+      const res = await fetch('/api/stats?name=Parik');
       const data = await res.json();
       setStats(data);
     } catch (err) {
