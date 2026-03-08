@@ -315,11 +315,11 @@ export default function App() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.1 }}
             className="glass-card p-8 w-full max-w-md text-center z-10"
-          >4 neon-text font-bold">Here's a little hint to unlock this:</h2>
+          >
+            <h2 className="text-xl font-retro mb-4 neon-text font-bold">Here's a little hint to unlock this:</h2>
             <div className="h-px bg-hunyadi-yellow/20 w-full my-4" />
             <p className="text-sm font-mono text-vanilla/70 mb-6 tracking-wide">[6/3/26 2:02 AM SGT]</p>
-            <p className="mb-6 text-lg font-medium">_______ _______
-            <p className="mb-4 text-base font-medium">"I got my ______ booked."</p>
+            <p className="mb-6 text-lg font-medium">_______ _______</p>
             <input
               type="text"
               value={lyric}
@@ -725,9 +725,7 @@ export default function App() {
             </div>
           </div>
         </footer>
-      )}>
-        </div>
-      </footer>
+      )}
     </div>
   );
 }
