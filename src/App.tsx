@@ -216,23 +216,25 @@ export default function App() {
       )}
 
       {/* Aesthetic Header */}
-      <header className="w-full max-w-7xl mx-auto flex justify-between items-center py-8 px-8 z-50 mb-8">
-        <div className="flex items-center gap-4 text-hunyadi-yellow/30">
-          <Heart size={12} className="fill-current" />
-          <span className="text-[10px] tracking-[0.4em] font-black">✧˖*°࿐</span>
-        </div>
-        
-        <div className="flex flex-col items-center gap-1">
-          <div className="flex items-center gap-3 text-hunyadi-yellow/60">
-            <Heart size={16} className="fill-hunyadi-yellow/20" />
+      {step === 'main' && (
+        <header className="w-full max-w-7xl mx-auto flex justify-between items-center py-8 px-8 z-50 mb-8">
+          <div className="flex items-center gap-4 text-hunyadi-yellow/30">
+            <Heart size={12} className="fill-current" />
+            <span className="text-[10px] tracking-[0.4em] font-black">✧˖*°࿐</span>
           </div>
-        </div>
+          
+          <div className="flex flex-col items-center gap-1">
+            <div className="flex items-center gap-3 text-hunyadi-yellow/60">
+              <Heart size={16} className="fill-hunyadi-yellow/20" />
+            </div>
+          </div>
 
-        <div className="flex items-center gap-4 text-hunyadi-yellow/30">
-          <span className="text-[10px] tracking-[0.4em] font-black">✧˖*°࿐</span>
-          <Heart size={12} className="fill-current" />
-        </div>
-      </header>
+          <div className="flex items-center gap-4 text-hunyadi-yellow/30">
+            <span className="text-[10px] tracking-[0.4em] font-black">✧˖*°࿐</span>
+            <Heart size={12} className="fill-current" />
+          </div>
+        </header>
+      )}
 
       {/* Floating Decorative Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
