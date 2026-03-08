@@ -132,11 +132,12 @@ export default function App() {
   };
 
   const handleLyric = () => {
-    if (lyric.toLowerCase().trim() === 'flights') {
+    const cleanedInput = lyric.toLowerCase().trim().replace(/[']/g, '');
+    if (cleanedInput === 'flights booked') {
       setError('');
       checkRedemption().then(() => setStep('redemption'));
     } else {
-      setError("You might need to revisit your Drake playlist.");
+      setError("Hmm… that doesn't seem right.");
     }
   };
 
@@ -180,15 +181,17 @@ export default function App() {
       <div className="scanline" />
 
       {/* Top Marquee */}
-      <div className="w-full bg-hunyadi-yellow/10 border-y border-hunyadi-yellow/10 py-3 overflow-hidden z-50">
-        <div className="marquee-content whitespace-nowrap">
-          {[...Array(10)].map((_, i) => (
-            <span key={i} className="font-cursive text-xl mx-12 opacity-40 lowercase">
-              a digital keepsake, made for parik
-            </span>
-          ))}
+      {step === 'main' && (
+        <div className="w-full bg-hunyadi-yellow/10 border-y border-hunyadi-yellow/10 py-3 overflow-hidden z-50">
+          <div className="marquee-content whitespace-nowrap">
+            {[...Array(10)].map((_, i) => (
+              <span key={i} className="font-cursive text-xl mx-12 opacity-40 lowercase">
+                a digital keepsake, made for parik
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Aesthetic Header */}
       <header className="w-full max-w-7xl mx-auto flex justify-between items-center py-8 px-8 z-50 mb-8">
@@ -244,8 +247,8 @@ export default function App() {
               </motion.div>
             ) : (
               <>
-                <h1 className="text-3xl font-retro mb-4 neon-text font-black tracking-tighter">Oh hello there, handsome.</h1>
-                <p className="label-small mb-8">Before you go any further… what's your name?</p>
+                <h1 className="text-2xl font-retro mb-4 neon-text font-black tracking-tighter whitespace-nowrap">Oh hello there, handsome.</h1>
+                <p className="label-small mb-8">What's your name?</p>
                 <input
                   type="text"
                   value={name}
@@ -284,7 +287,7 @@ export default function App() {
               </motion.div>
             ) : (
               <>
-                <h2 className="text-2xl font-retro mb-3 neon-text font-black tracking-tighter">Just to double check it's really you…</h2>
+                <h2 className="text-2xl font-retro mb-3 neon-text font-black tracking-tighter whitespace-nowrap">Just to double check it's really you…</h2>
                 <p className="label-small mb-8">What do people also happen to call you?</p>
                 <input
                   type="text"
@@ -312,11 +315,10 @@ export default function App() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.1 }}
             className="glass-card p-8 w-full max-w-md text-center z-10"
-          >
-            <h2 className="text-xl font-retro mb-2 neon-text font-bold">Ah… there it is.</h2>
+          >4 neon-text font-bold">Here's a little hint to unlock this:</h2>
             <div className="h-px bg-hunyadi-yellow/20 w-full my-4" />
-            <p className="text-[10px] uppercase tracking-wider opacity-60 mb-2 font-semibold">One Last Thing</p>
-            <p className="mb-4 italic text-sm">"Finish the lyric"</p>
+            <p className="text-sm font-mono text-vanilla/70 mb-6 tracking-wide">[6/3/26 2:02 AM SGT]</p>
+            <p className="mb-6 text-lg font-medium">_______ _______
             <p className="mb-4 text-base font-medium">"I got my ______ booked."</p>
             <input
               type="text"
@@ -705,23 +707,25 @@ export default function App() {
         )}
       </AnimatePresence>
       </main>
-
-      {/* Aesthetic Footer */}
-      <footer className="w-full max-w-7xl mx-auto mt-12 pb-12 px-8 z-50">
-        <div className="border-t border-white/5 pt-12 flex flex-col items-center gap-8">
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex items-center gap-4 text-hunyadi-yellow/30 mb-2">
-              <Heart size={10} className="fill-current" />
-              <span className="text-[8px] tracking-[0.4em] font-black">✧˖*°࿐</span>
-              <Heart size={10} className="fill-current" />
-            </div>
-            <p className="font-cursive text-2xl text-hunyadi-yellow/60 tracking-wide">love, sarah</p>
-            <div className="flex gap-4 mt-2">
-              {[Heart, Music, Disc].map((Icon, i) => (
-                <Icon key={i} size={12} className="opacity-10 hover:opacity-30 transition-opacity cursor-pointer" />
-              ))}
+{step === 'main' && (
+        <footer className="w-full max-w-7xl mx-auto mt-12 pb-12 px-8 z-50">
+          <div className="border-t border-white/5 pt-12 flex flex-col items-center gap-8">
+            <div className="flex flex-col items-center gap-3">
+              <div className="flex items-center gap-4 text-hunyadi-yellow/30 mb-2">
+                <Heart size={10} className="fill-current" />
+                <span className="text-[8px] tracking-[0.4em] font-black">✧˖*°࿐</span>
+                <Heart size={10} className="fill-current" />
+              </div>
+              <p className="font-cursive text-2xl text-hunyadi-yellow/60 tracking-wide">love, sarah</p>
+              <div className="flex gap-4 mt-2">
+                {[Heart, Music, Disc].map((Icon, i) => (
+                  <Icon key={i} size={12} className="opacity-10 hover:opacity-30 transition-opacity cursor-pointer" />
+                ))}
+              </div>
             </div>
           </div>
+        </footer>
+      )}>
         </div>
       </footer>
     </div>
