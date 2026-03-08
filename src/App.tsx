@@ -654,18 +654,18 @@ export default function App() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
-                        className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+                        className="absolute inset-0 z-[2000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm rounded-[2.5rem]"
                         onClick={() => setShowAngryPopup(false)}
                       >
                         <motion.div 
-                          className="glass-card p-8 max-w-xs w-full text-center space-y-4 border-red-500/20"
+                          className="glass-card p-12 w-full text-center space-y-6 border-red-500/20"
                           onClick={e => e.stopPropagation()}
                         >
-                          <div className="text-5xl">😡</div>
-                          <p className="text-red-400 font-bold tracking-widest text-xs">pick another one.</p>
+                          <div className="text-7xl">😡</div>
+                          <p className="text-red-400 font-bold tracking-widest text-sm">pick another one.</p>
                           <button 
                             onClick={() => setShowAngryPopup(false)}
-                            className="w-full py-3 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 rounded-xl text-[10px] tracking-widest font-bold text-red-400 transition-all"
+                            className="w-full py-4 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 rounded-xl text-[10px] tracking-widest font-bold text-red-400 transition-all"
                           >
                             okay sorry
                           </button>
