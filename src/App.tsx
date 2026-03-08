@@ -489,6 +489,8 @@ export default function App() {
                   weight={3}
                   dashArray="10, 20"
                   opacity={0.6}
+                  lineCap="round"
+                  lineJoin="round"
                 />
               </MapContainer>
             </section>
