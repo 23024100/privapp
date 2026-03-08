@@ -83,12 +83,18 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Calculate next note submission time (12 AM SGT)
+  // Calculate next note submission time (12 AM SGT daily)
   useEffect(() => {
     const timer = setInterval(() => {
       if (lastNoteTime) {
-        const nextTime = lastNoteTime + 24 * 60 * 60 * 1000; // 24 hours later
-        setNextNoteTime(nextTime);
+        // Get next 12 AM SGT (UTC+8)
+        const now = new Date();
+        const sgtNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Singapore' }));
+        const sgtNext = new Date(sgtNow);
+        sgtNext.setDate(sgtNext.getDate() + 1);
+        sgtNext.setHours(0, 0, 0, 0);
+        
+        setNextNoteTime(sgtNext.getTime());
       }
     }, 1000);
     return () => clearInterval(timer);
@@ -192,6 +198,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen relative flex flex-col items-center p-4 overflow-x-hidden">
+      <StarBackground />
       <div className="grain-texture" />
       <div className="scanline" />
 
