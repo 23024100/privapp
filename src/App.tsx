@@ -419,11 +419,11 @@ export default function App() {
             </header>
 
             {/* Map Section */}
-            <section className="glass-card p-2 h-[450px] relative overflow-hidden group border-white/5">
+            <section className="glass-card p-2 h-[350px] relative overflow-hidden group border-white/5 -mt-4">
               <div className="absolute top-6 left-6 z-[1000]">
                 <div className="bg-ink/80 backdrop-blur-xl px-4 py-2 rounded-full border border-white/10 text-[9px] uppercase tracking-[0.2em] font-bold flex items-center gap-3 shadow-xl">
                   <div className="w-1.5 h-1.5 rounded-full bg-hunyadi-yellow" />
-                  <span className="text-vanilla/70">6,000 km between us</span>
+                  <span className="text-vanilla/70">7,680 km between us</span>
                 </div>
               </div>
               
@@ -459,8 +459,8 @@ export default function App() {
 
             {/* Music Section */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-              <div className="glass-card p-8 flex flex-col items-center justify-center space-y-8 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-hunyadi-yellow/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="glass-card p-8 flex flex-col items-center justify-center space-y-6 relative overflow-visible group">
+                <div className="absolute inset-0 bg-hunyadi-yellow/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2.5rem]" />
                 
                 {/* Daily Suggestion */}
                 <motion.a
@@ -469,67 +469,57 @@ export default function App() {
                   rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="absolute top-8 left-8 right-8 bg-white/[0.02] backdrop-blur-md border border-white/5 p-4 rounded-2xl flex items-center gap-4 hover:bg-white/5 transition-all group/song z-20"
+                  className="w-full max-w-xs bg-gradient-to-r from-hunyadi-yellow/15 to-hunyadi-yellow/5 backdrop-blur-md border border-hunyadi-yellow/30 p-4 rounded-2xl flex items-center gap-4 hover:from-hunyadi-yellow/25 hover:to-hunyadi-yellow/10 transition-all group/song z-10 relative"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-hunyadi-yellow/10 flex items-center justify-center group-hover/song:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-xl bg-hunyadi-yellow/20 flex items-center justify-center group-hover/song:scale-110 transition-transform flex-shrink-0">
                     <Music size={16} className="text-hunyadi-yellow" />
                   </div>
-                  <div className="flex flex-col">
-                    <span className="label-small mb-1">a song that reminds me of you todayyy</span>
-                    <span className="text-[10px] font-medium text-vanilla/80 leading-tight">
-                      "Don't Leave" by Giveon
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-hunyadi-yellow font-bold">Song for you</span>
+                    <span className="text-[11px] font-semibold text-vanilla/90 leading-tight truncate">
+                      Don't Leave — Giveon
                     </span>
                   </div>
                 </motion.a>
 
-                <div className="relative pt-12">
+                <div className="relative w-full flex justify-center">
                   {/* Turntable Base Shadow */}
-                  <div className="absolute inset-0 bg-black/40 blur-2xl rounded-full transform translate-y-4" />
+                  <div className="absolute inset-x-0 top-1/2 w-64 md:w-72 h-32 bg-black/30 blur-3xl rounded-full" />
                   
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                    className="w-56 h-56 md:w-64 md:h-64 rounded-full bg-[#050505] border-[6px] border-zinc-900 flex items-center justify-center relative shadow-[0_0_50px_rgba(0,0,0,0.8)]"
+                    className="w-56 h-56 md:w-64 md:h-64 rounded-full bg-[#050505] border-[8px] border-zinc-800 flex items-center justify-center relative shadow-[0_0_60px_rgba(224,159,62,0.2)]"
                   >
                     {/* Vinyl Grooves */}
-                    {[...Array(12)].map((_, i) => (
+                    {[...Array(14)].map((_, i) => (
                       <div
                         key={i}
-                        className="absolute rounded-full border border-white/5"
-                        style={{ width: `${40 + i * 5}%`, height: `${40 + i * 5}%` }}
+                        className="absolute rounded-full border border-white/10"
+                        style={{ width: `${35 + i * 4.5}%`, height: `${35 + i * 4.5}%` }}
                       />
                     ))}
                     
-                    {/* Center Label */}
-                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-dark-slate border-2 border-hunyadi-yellow/30 flex items-center justify-center z-10 overflow-hidden relative">
+                    {/* Center Label - Larger and more visible */}
+                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-dark-slate border-4 border-hunyadi-yellow/40 flex items-center justify-center z-10 overflow-hidden relative shadow-xl">
                        <img 
                          src="https://i.pinimg.com/736x/85/04/7f/85047f44eeec2740bdea3c388805611d.jpg" 
                          alt="Playlist Cover" 
-                         className="w-full h-full object-cover opacity-80"
+                         className="w-full h-full object-cover opacity-90"
                          referrerPolicy="no-referrer"
                        />
-                       <div className="absolute inset-0 bg-gradient-to-tr from-hunyadi-yellow/10 to-transparent mix-blend-overlay" />
-                       <div className="absolute w-2 h-2 rounded-full bg-zinc-900 shadow-inner z-20" />
+                       <div className="absolute inset-0 bg-gradient-to-tr from-hunyadi-yellow/20 to-transparent mix-blend-overlay" />
+                       <div className="absolute w-3 h-3 rounded-full bg-hunyadi-yellow/50 shadow-lg z-20" />
                     </div>
 
                     {/* Reflection/Shine */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none" />
                   </motion.div>
 
                   {/* Tonearm */}
-                  <div className="absolute -top-2 -right-6 w-32 h-4 bg-zinc-800 rounded-full origin-right rotate-[15deg] border border-white/10 hidden md:block">
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 bg-zinc-700 rounded-sm border border-white/20" />
+                  <div className="absolute top-12 -right-12 w-32 h-5 bg-gradient-to-r from-zinc-700 to-zinc-800 rounded-full origin-left rotate-[-25deg] border border-white/20 hidden md:block shadow-lg">
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 bg-zinc-600 rounded-sm border border-white/30 shadow-lg" />
                   </div>
-
-                  <div className="absolute -top-4 -right-4 bg-dark-slate p-3 rounded-full border border-hunyadi-yellow/30 shadow-[0_0_15px_rgba(224,159,62,0.4)] z-20">
-                    <Music className="text-hunyadi-yellow" size={20} />
-                  </div>
-                </div>
-
-                <div className="text-center relative z-10 px-4">
-                  <h3 className="font-serif italic text-sm md:text-base text-vanilla/90 tracking-tight leading-relaxed lowercase">
-                    don't leave, i'm not ready to let go
-                  </h3>
                 </div>
               </div>
 
