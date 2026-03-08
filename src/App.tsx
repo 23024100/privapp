@@ -664,7 +664,7 @@ export default function App() {
                         onClick={() => setShowAngryPopup(false)}
                       >
                         <motion.div 
-                          className="glass-card p-12 w-full max-w-sm text-center space-y-6 border-red-500/20 bg-black/60"
+                          className="glass-card p-12 w-full max-w-sm text-center space-y-6 border-red-500/20 bg-black/80"
                           onClick={e => e.stopPropagation()}
                         >
                           <div className="text-8xl animate-bounce">😡</div>
