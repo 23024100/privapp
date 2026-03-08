@@ -366,7 +366,7 @@ export default function App() {
               <div className="space-y-4">
                 <h2 className="text-xl font-retro neon-text font-bold">You've got a gift waiting.</h2>
                 <p className="text-sm opacity-80">Enter your address to redeem it.</p>
-                <p className="text-[10px] opacity-40 italic">Don't worry… this isn't a scam. I just need somewhere to send a sweet treat.</p>
+                <p className="text-[10px] opacity-40 italic">I promise this is real. I have something special to send your way.</p>
                 <form onSubmit={handleRedeem} className="space-y-4 text-left">
                   <div>
                     <label className="text-xs uppercase tracking-widest opacity-60 ml-1">Postal Code</label>
