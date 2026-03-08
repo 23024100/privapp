@@ -419,7 +419,7 @@ export default function App() {
             </header>
 
             {/* Map Section */}
-            <section className="glass-card p-2 h-[350px] relative overflow-hidden group border-white/5 -mt-4">
+            <section className="glass-card p-2 h-[500px] relative overflow-hidden group border-white/5 -mt-4">
               <div className="absolute top-6 left-6 z-[1000]">
                 <div className="bg-ink/80 backdrop-blur-xl px-4 py-2 rounded-full border border-white/10 text-[9px] uppercase tracking-[0.2em] font-bold flex items-center gap-3 shadow-xl">
                   <div className="w-1.5 h-1.5 rounded-full bg-hunyadi-yellow" />
