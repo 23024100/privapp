@@ -631,7 +631,7 @@ export default function App() {
                     </div>
 
                     <div className="md:col-span-2 space-y-5">
-                      <label className="label-small ml-1">do you still like me?</label>
+                      <label className="label-small ml-1">do you still like me....?</label>
                       <div className="flex gap-2 sm:gap-4 flex-col sm:flex-row">
                         <button
                           onClick={() => setMissesSarah(true)}
