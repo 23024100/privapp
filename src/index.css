@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Dancing+Script:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-hunyadi-yellow: #E09F3E;
+  --color-auburn: #9E2A2B;
+  --color-dark-slate: #335C67;
+  --color-vanilla: #FFF3B0;
+  --color-ink: #0A0A0A;
+
+  --font-retro: "Plus Jakarta Sans", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-cursive: "Dancing Script", cursive;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; filter: blur(2px); }
+    50% { opacity: 1; filter: blur(4px); }
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes sparkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-ink text-vanilla font-sans overflow-x-hidden;
+    background-image: 
+      radial-gradient(circle at 0% 0%, rgba(51, 92, 103, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(158, 42, 43, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, #0A0A0A 0%, #000000 100%);
+  }
+}
+
+@layer components {
+  .sparkle {
+    animation: sparkle 3s ease-in-out infinite;
+  }
+
+  .glass-card {
+    @apply bg-white/[0.03] backdrop-blur-3xl border border-white/5 rounded-[2.5rem] shadow-2xl;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+  }
+
+  .label-small {
+    @apply text-[9px] tracking-[0.3em] opacity-30 font-bold;
+  }
+
+  .scanline {
+    width: 100%;
+    height: 100px;
+    z-index: 101;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(224, 159, 62, 0.02) 50%, rgba(0, 0, 0, 0) 100%);
+    opacity: 0.1;
+    position: fixed;
+    bottom: 100%;
+    left: 0;
+    pointer-events: none;
+    animation: scanline 10s linear infinite;
+  }
+
+  @keyframes scanline {
+    0% { bottom: 100%; }
+    100% { bottom: -100px; }
+  }
+
+  .neon-text {
+    @apply text-hunyadi-yellow;
+    text-shadow: 0 0 12px rgba(224, 159, 62, 0.3);
+  }
+
+  .neon-border {
+    @apply border border-hunyadi-yellow/30;
+    box-shadow: 0 0 15px rgba(224, 159, 62, 0.1);
+  }
+
+  .grain-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  .grid-pattern {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .marquee-content {
+    display: flex;
+    animation: marquee 30s linear infinite;
+  }
+}
+
+/* Leaflet Overrides */
+.leaflet-container {
+  background: #0A0A0A !important;
+  border-radius: 1.5rem;
+}
+
+.leaflet-tile {
+  filter: grayscale(1) contrast(1.2) brightness(0.7);
+}
