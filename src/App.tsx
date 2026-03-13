@@ -102,6 +102,13 @@ export default function App() {
     return () => clearInterval(timer);
   }, [lastNoteTime]);
 
+  // Fetch Parik's notes when Sarah logs in or on mount
+  useEffect(() => {
+    if (user === 'sarah') {
+      fetchParikNotes();
+    }
+  }, [user]);
+
   const checkRedemption = async () => {
     try {
       const res = await fetch('/api/address-check?name=Parik');
