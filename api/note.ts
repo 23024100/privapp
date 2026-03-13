@@ -15,10 +15,6 @@ const noteSchema = new mongoose.Schema({
 const Note = mongoose.models.Note || mongoose.model('Note', noteSchema);
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
   if (!MONGODB_URI) {
     return res.status(500).json({ error: 'Database not configured' });
   }
@@ -26,6 +22,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     if (mongoose.connection.readyState === 0) {
       await mongoose.connect(MONGODB_URI);
+    }
+
+    if (req.method === 'GET') {
+      const { name } = req.query;
+      if (!name) {
+        return res.status(400).json({ error: 'Name is required' });
+      }
+      const notes = await Note.find({ name }).sort({ createdAt: -1 });
+      return res.status(200).json(notes);
+    }
+
+    if (req.method !== 'POST') {
+      return res.status(405).json({ error: 'Method not allowed' });
     }
 
     const { name, mood, missesSarah, note, dayRating } = req.body;

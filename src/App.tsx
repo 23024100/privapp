@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Heart, Music, MapPin, Clock, Disc, Star, Send } from 'lucide-react';
 import { StarBackground } from './components/StarBackground';
+import { ThingsWaitingForUs } from './components/ThingsWaitingForUs';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -15,7 +16,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-type Step = 'landing' | 'nickname' | 'lyrics' | 'redemption' | 'main';
+type Step = 'landing' | 'nickname' | 'note' | 'main';
 
 export default function App() {
   const [step, setStep] = useState<Step>(() => {
@@ -47,6 +48,7 @@ export default function App() {
     const saved = sessionStorage.getItem('lastNoteTime');
     return saved ? parseInt(saved) : null;
   });
+  const [parikNotes, setParikNotes] = useState<any[]>([]);
   const [nextNoteTime, setNextNoteTime] = useState<number>(0);
 
   useEffect(() => {
@@ -120,6 +122,17 @@ export default function App() {
     }
   };
 
+  const fetchParikNotes = async () => {
+    try {
+      const res = await fetch('/api/note?name=Parik');
+      const data = await res.json();
+      console.log('Parik notes fetched:', data);
+      setParikNotes(data);
+    } catch (err) {
+      console.error('Error fetching Parik notes:', err);
+    }
+  };
+
   const handleLanding = () => {
     const lowerName = name.toLowerCase().trim();
     if (lowerName === 'parik') {
@@ -134,7 +147,10 @@ export default function App() {
       setError('');
       setUser('sarah');
       // Aesthetic delay for Sarah's bypass
-      setTimeout(() => setStep('main'), 800);
+      setTimeout(() => {
+        setStep('main');
+        fetchParikNotes();
+      }, 800);
     } else {
       setError("Sorry… this wasn't meant for you.");
     }
@@ -146,7 +162,7 @@ export default function App() {
       setError('');
       setNicknameSuccess(true);
       setTimeout(() => {
-        setStep('lyrics');
+        setStep('note');
         setNicknameSuccess(false);
       }, 2000);
     } else {
@@ -306,109 +322,24 @@ export default function App() {
           </motion.div>
         )}
 
-        {step === 'lyrics' && (
+        {step === 'note' && (
           <motion.div
-            key="lyrics"
+            key="note"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.1 }}
             className="glass-card p-8 w-full max-w-md text-center z-10"
           >
-            <h2 className="text-xl font-retro mb-4 neon-text font-bold">Here's a little hint to unlock this:</h2>
-            <div className="h-px bg-hunyadi-yellow/20 w-full my-4" />
-            <p className="text-sm font-mono text-vanilla/70 mb-6 tracking-wide">[6/3/26 2:02 AM SGT]</p>
-            <p className="mb-6 text-lg font-medium">_______ _______</p>
-            <input
-              type="text"
-              value={lyric}
-              onChange={(e) => setLyric(e.target.value)}
-              className="w-full bg-dark-slate/50 border border-hunyadi-yellow/30 rounded-xl p-4 mb-4 focus:outline-none focus:border-hunyadi-yellow transition-colors text-center text-vanilla"
-              placeholder="..."
-            />
+            <p className="text-sm text-hunyadi-yellow/60 uppercase tracking-widest mb-6 font-medium">you've got a note from sarah:</p>
+            <div className="h-px bg-hunyadi-yellow/20 w-full my-6" />
+            <p className="text-lg font-cursive text-white/80 mb-8 leading-relaxed">i miss you so so much :c</p>
+            <div className="h-px bg-hunyadi-yellow/20 w-full my-6" />
             <button
-              onClick={handleLyric}
-              className="w-full bg-hunyadi-yellow/20 hover:bg-hunyadi-yellow/40 border border-hunyadi-yellow/50 rounded-xl p-4 transition-all neon-text font-medium"
+              onClick={() => setStep('main')}
+              className="w-full bg-hunyadi-yellow/10 hover:bg-hunyadi-yellow/20 border border-hunyadi-yellow/20 rounded-xl p-4 transition-all text-white font-medium"
             >
-              Unlock Surprise
+              Continue
             </button>
-            {error && <p className="mt-4 text-red-400 text-sm">{error}</p>}
-          </motion.div>
-        )}
-
-        {step === 'redemption' && (
-          <motion.div
-            key="redemption"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="glass-card p-6 sm:p-8 w-full max-w-md text-center z-10"
-          >
-            {isRedeemed ? (
-              <div className="space-y-4">
-                <h2 className="text-xl font-retro neon-text font-bold">Hey you.</h2>
-                <p className="text-sm opacity-80">Your gift has already been redeemed.</p>
-                <p className="text-sm opacity-80">It's already on its way to you.</p>
-                <p className="text-sm italic opacity-60">You'll just have to wait and see.</p>
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="flex justify-center"
-                >
-                  <Heart className="text-hunyadi-yellow fill-hunyadi-yellow" size={32} />
-                </motion.div>
-                <button
-                  onClick={() => setStep('main')}
-                  className="w-full bg-hunyadi-yellow/20 hover:bg-hunyadi-yellow/40 border border-hunyadi-yellow/50 rounded-lg p-3 transition-all neon-text font-medium mt-4"
-                >
-                  Enter Main Experience
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                <h2 className="text-xl font-retro neon-text font-bold">You've got a gift waiting.</h2>
-                <p className="text-sm opacity-80">Enter your address to redeem it.</p>
-                <p className="text-[10px] opacity-40 italic">I promise this is real. I have something special to send your way.</p>
-                <form onSubmit={handleRedeem} className="space-y-4 text-left">
-                  <div>
-                    <label className="text-xs uppercase tracking-widest opacity-60 ml-1">Postal Code</label>
-                    <input
-                      required
-                      type="text"
-                      value={addressForm.postalCode}
-                      onChange={(e) => setAddressForm({ ...addressForm, postalCode: e.target.value })}
-                      className="w-full bg-dark-slate/50 border border-hunyadi-yellow/30 rounded-3xl p-4 focus:outline-none focus:border-hunyadi-yellow transition-colors text-vanilla"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs uppercase tracking-widest opacity-60 ml-1">Block</label>
-                    <input
-                      required
-                      type="text"
-                      value={addressForm.block}
-                      onChange={(e) => setAddressForm({ ...addressForm, block: e.target.value })}
-                      className="w-full bg-dark-slate/50 border border-hunyadi-yellow/30 rounded-3xl p-4 focus:outline-none focus:border-hunyadi-yellow transition-colors text-vanilla"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs uppercase tracking-widest opacity-60 ml-1">Unit Number</label>
-                    <input
-                      required
-                      type="text"
-                      value={addressForm.unitNumber}
-                      onChange={(e) => setAddressForm({ ...addressForm, unitNumber: e.target.value })}
-                      className="w-full bg-dark-slate/50 border border-hunyadi-yellow/30 rounded-3xl p-4 focus:outline-none focus:border-hunyadi-yellow transition-colors text-vanilla"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={isRedeeming}
-                    className="w-full bg-hunyadi-yellow/20 hover:bg-hunyadi-yellow/40 border border-hunyadi-yellow/50 rounded-xl p-4 transition-all neon-text font-medium disabled:opacity-50"
-                  >
-                    {isRedeeming ? 'Processing...' : 'Redeem Gift'}
-                  </button>
-                  {error && <p className="mt-2 text-red-400 text-xs text-center">{error}</p>}
-                </form>
-              </div>
-            )}
           </motion.div>
         )}
 
@@ -747,6 +678,51 @@ export default function App() {
                 </div>
               )}
             </section>
+
+            {/* Things Waiting For Us Section */}
+            <ThingsWaitingForUs user={user} />
+
+            {/* Parik's Notes Section (visible to Sarah) */}
+            {user === 'sarah' && parikNotes.length > 0 && (
+              <section className="glass-card p-6 md:p-12 relative overflow-visible border-hunyadi-yellow/5">
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-hunyadi-yellow/20 to-transparent" />
+                
+                <div className="text-center mb-12">
+                  <p className="text-2xl sm:text-3xl font-cursive text-white/80 mb-2 tracking-wide">messages from parik</p>
+                  <p className="text-[10px] uppercase tracking-[0.4em] opacity-40 font-black text-hunyadi-yellow">💌</p>
+                </div>
+
+                <div className="space-y-8">
+                  {parikNotes.map((parikNote, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="glass-card p-6 md:p-8 border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-blue-400/5"
+                    >
+                      {parikNote.note && (
+                        <p className="text-sm font-serif text-white/80 mb-4 leading-relaxed italic">"{parikNote.note}"</p>
+                      )}
+                      
+                      <div className="flex flex-wrap gap-4 items-center justify-between text-xs opacity-60">
+                        <div className="flex gap-4 flex-wrap">
+                          {parikNote.mood && (
+                            <span>mood: {['😢', '😠', '😐', '😊', '🥰'][parikNote.mood - 1]}</span>
+                          )}
+                          {parikNote.dayRating && (
+                            <span>day rating: {parikNote.dayRating}/5</span>
+                          )}
+                          {parikNote.missesSarah !== null && (
+                            <span>{parikNote.missesSarah ? 'misses you' : 'doing ok'}</span>
+                          )}
+                        </div>
+                        <span>{new Date(parikNote.createdAt).toLocaleDateString()}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </section>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
