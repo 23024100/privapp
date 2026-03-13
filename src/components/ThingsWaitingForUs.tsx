@@ -20,6 +20,24 @@ export function ThingsWaitingForUs({ user }: ThingsWaitingForUsProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [draggedId, setDraggedId] = useState<string | null>(null);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch activities on mount
+  React.useEffect(() => {
+    fetchActivities();
+  }, []);
+
+  const fetchActivities = async () => {
+    try {
+      const res = await fetch('/api/activity');
+      const data = await res.json();
+      setActivities(data);
+    } catch (err) {
+      console.error('Failed to fetch activities:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleAddActivity = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,28 +53,53 @@ export function ThingsWaitingForUs({ user }: ThingsWaitingForUsProps) {
         rotation: Math.random() * 4 - 2, // Random rotation between -2 and 2 degrees
       };
 
-      setActivities([newActivity, ...activities]);
-      setInputValue('');
-
-      // Optional: Save to API
-      await fetch('/api/activity', {
+      // Save to API
+      const res = await fetch('/api/activity', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newActivity),
-      }).catch(err => console.error('Failed to save activity:', err));
+      });
+
+      if (res.ok) {
+        setActivities([newActivity, ...activities]);
+        setInputValue('');
+      } else {
+        alert('Failed to save activity');
+      }
+    } catch (err) {
+      console.error('Failed to save activity:', err);
+      alert('Error saving activity');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const toggleDone = (id: string) => {
+    const activity = activities.find(a => a.id === id);
+    if (!activity) return;
+
+    const newIsDone = !activity.isDone;
     setActivities(activities.map(a =>
-      a.id === id ? { ...a, isDone: !a.isDone } : a
+      a.id === id ? { ...a, isDone: newIsDone } : a
     ));
+
+    // Update in database
+    fetch('/api/activity', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, isDone: newIsDone }),
+    }).catch(err => console.error('Failed to update activity:', err));
   };
 
   const deleteActivity = (id: string) => {
     setActivities(activities.filter(a => a.id !== id));
+    
+    // Delete from database
+    fetch('/api/activity', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    }).catch(err => console.error('Failed to delete activity:', err));
   };
 
   const undoneCount = activities.filter(a => !a.isDone).length;

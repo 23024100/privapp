@@ -713,7 +713,7 @@ export default function App() {
                             <span>day rating: {parikNote.dayRating}/5</span>
                           )}
                           {parikNote.missesSarah !== null && (
-                            <span>{parikNote.missesSarah ? 'misses you' : 'doing ok'}</span>
+                            <span>do you still like me: {parikNote.missesSarah ? 'obviously' : 'yes'}</span>
                           )}
                         </div>
                         <span>{new Date(parikNote.createdAt).toLocaleDateString()}</span>
