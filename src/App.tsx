@@ -705,19 +705,19 @@ export default function App() {
                           <p className="text-sm font-serif text-white/80 mb-4 leading-relaxed italic">"{parikNote.note}"</p>
                         )}
                         
-                        <div className="flex flex-wrap gap-4 items-center justify-between text-xs opacity-60">
-                          <div className="flex gap-4 flex-wrap">
+                        <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 items-start sm:items-center justify-between text-[10px] sm:text-xs opacity-60">
+                          <div className="flex gap-2 sm:gap-4 flex-wrap">
                             {parikNote.mood && (
-                              <span>mood: {['😢', '😠', '😐', '😊', '🥰'][parikNote.mood - 1]}</span>
+                              <span className="whitespace-nowrap">mood: {['😢', '😠', '😐', '😊', '🥰'][parikNote.mood - 1]}</span>
                             )}
                             {parikNote.dayRating && (
-                              <span>day rating: {parikNote.dayRating}/5</span>
+                              <span className="whitespace-nowrap">rating: {parikNote.dayRating}/5</span>
                             )}
                             {parikNote.missesSarah !== null && (
-                              <span>do you still like me: {parikNote.missesSarah ? 'obviously' : 'yes'}</span>
+                              <span className="whitespace-nowrap">do u like me: {parikNote.missesSarah ? 'obviously' : 'yes'}</span>
                             )}
                           </div>
-                          <span>{new Date(parikNote.createdAt).toLocaleDateString()}</span>
+                          <span className="whitespace-nowrap">{new Date(parikNote.createdAt).toLocaleDateString()}</span>
                         </div>
                       </motion.div>
                     ))}

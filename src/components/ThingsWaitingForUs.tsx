@@ -139,18 +139,18 @@ export function ThingsWaitingForUs({ user }: ThingsWaitingForUsProps) {
       {/* Input Section */}
       {user && (
         <form onSubmit={handleAddActivity} className="mb-12">
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Add an activity you want to do together..."
-              className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm placeholder-white/40 focus:outline-none focus:border-hunyadi-yellow/30 focus:bg-white/10 transition-all text-white"
+              placeholder="Add an activity..."
+              className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-3 sm:px-4 py-3 text-sm placeholder-white/40 focus:outline-none focus:border-hunyadi-yellow/30 focus:bg-white/10 transition-all text-white"
             />
             <button
               type="submit"
               disabled={!inputValue.trim() || isSubmitting}
-              className="px-6 py-3 bg-hunyadi-yellow/10 hover:bg-hunyadi-yellow/20 border border-hunyadi-yellow/30 rounded-2xl text-white font-medium text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+              className="px-4 sm:px-6 py-3 bg-hunyadi-yellow/10 hover:bg-hunyadi-yellow/20 border border-hunyadi-yellow/30 rounded-2xl text-white font-medium text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
             >
               {isSubmitting ? 'Adding...' : 'Add'}
             </button>
@@ -164,7 +164,7 @@ export function ThingsWaitingForUs({ user }: ThingsWaitingForUsProps) {
           {/* Pending Activities */}
           {undoneCount > 0 && (
             <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-max">
                 <AnimatePresence mode="popLayout">
                   {activities
                     .filter(a => !a.isDone)
@@ -247,7 +247,7 @@ export function ThingsWaitingForUs({ user }: ThingsWaitingForUsProps) {
               className="border-t border-white/10 pt-8"
             >
               <p className="text-xs uppercase tracking-[0.2em] opacity-40 font-bold mb-4 text-white/60">✓ Done</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-max">
                 <AnimatePresence mode="popLayout">
                   {doneActivities.map((activity) => (
                     <motion.div
