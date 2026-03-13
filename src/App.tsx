@@ -683,7 +683,7 @@ export default function App() {
             <ThingsWaitingForUs user={user} />
 
             {/* Parik's Notes Section (visible to Sarah) */}
-            {user === 'sarah' && parikNotes.length > 0 && (
+            {user === 'sarah' && (
               <section className="glass-card p-6 md:p-12 relative overflow-visible border-hunyadi-yellow/5">
                 <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-hunyadi-yellow/20 to-transparent" />
                 
@@ -692,35 +692,47 @@ export default function App() {
                   <p className="text-[10px] uppercase tracking-[0.4em] opacity-40 font-black text-hunyadi-yellow">💌</p>
                 </div>
 
-                <div className="space-y-8">
-                  {parikNotes.map((parikNote, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="glass-card p-6 md:p-8 border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-blue-400/5"
-                    >
-                      {parikNote.note && (
-                        <p className="text-sm font-serif text-white/80 mb-4 leading-relaxed italic">"{parikNote.note}"</p>
-                      )}
-                      
-                      <div className="flex flex-wrap gap-4 items-center justify-between text-xs opacity-60">
-                        <div className="flex gap-4 flex-wrap">
-                          {parikNote.mood && (
-                            <span>mood: {['😢', '😠', '😐', '😊', '🥰'][parikNote.mood - 1]}</span>
-                          )}
-                          {parikNote.dayRating && (
-                            <span>day rating: {parikNote.dayRating}/5</span>
-                          )}
-                          {parikNote.missesSarah !== null && (
-                            <span>do you still like me: {parikNote.missesSarah ? 'obviously' : 'yes'}</span>
-                          )}
+                {parikNotes.length > 0 ? (
+                  <div className="space-y-8">
+                    {parikNotes.map((parikNote, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="glass-card p-6 md:p-8 border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-blue-400/5"
+                      >
+                        {parikNote.note && (
+                          <p className="text-sm font-serif text-white/80 mb-4 leading-relaxed italic">"{parikNote.note}"</p>
+                        )}
+                        
+                        <div className="flex flex-wrap gap-4 items-center justify-between text-xs opacity-60">
+                          <div className="flex gap-4 flex-wrap">
+                            {parikNote.mood && (
+                              <span>mood: {['😢', '😠', '😐', '😊', '🥰'][parikNote.mood - 1]}</span>
+                            )}
+                            {parikNote.dayRating && (
+                              <span>day rating: {parikNote.dayRating}/5</span>
+                            )}
+                            {parikNote.missesSarah !== null && (
+                              <span>do you still like me: {parikNote.missesSarah ? 'obviously' : 'yes'}</span>
+                            )}
+                          </div>
+                          <span>{new Date(parikNote.createdAt).toLocaleDateString()}</span>
                         </div>
-                        <span>{new Date(parikNote.createdAt).toLocaleDateString()}</span>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center py-12"
+                  >
+                    <p className="text-sm font-serif italic opacity-60 tracking-wide">
+                      no messages yet :(
+                    </p>
+                  </motion.div>
+                )}
               </section>
             )}
           </motion.div>
