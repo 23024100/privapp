@@ -514,7 +514,7 @@ export default function App() {
                   <div className="flex flex-col min-w-0">
                     <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.15em] text-hunyadi-yellow font-bold whitespace-nowrap">a song that reminds me of you today</span>
                     <span className="text-[10px] sm:text-[11px] font-semibold text-vanilla/90 leading-tight truncate">
-                      Don't Leave — Giveon
+                      Sign Of The Times — Daniel Caesar
                     </span>
                   </div>
                 </motion.a>
